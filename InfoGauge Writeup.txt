@@ -1,0 +1,74 @@
+InfoGauge write-up:
+
+InfoGauge is an answer to the desire to monitor many parameters on vehicles that are not well instrumented.  The project came about because I didn't want to try and fit 13 gauges somewhere on my dash and I wanted it to be as unobtrusive as possible, and with a little luck, have some alarming abilities.  One hope is to make the customization menu driven rather than the current hard coding choices.
+
+This project had a number of goals:
+1) monitor as many important parameters as possible on my vehicles.
+2) minimize the space needed to do the above.
+3) make it affordable and allow us to keep our vans on the road.
+4) have alarming abilities to alert you without constant attention.
+5) make it reasonably easy to install and maintain.
+6) make it an accessable platform for those that wanted to experiment.
+7) allow for minimal impact in classic vehicles while adding diagnostic info. 
+
+It is specifically optimized for keeping an eye on my VW Vanagon Syncro Westphalia (4wd camper) and its unique requirements, but could be adapted to others.
+
+It was originally built on the commonly available Arduino platform with custom additions, but has now migrated to a Teensy 3.2 on a main board and a remote board for connecting most of the sensors. The Teensy still uses the Arduino concept and is programmable in the same way.  
+
+I have arranged the display in a way that best suits my needs.  It is possible that it could be totally changed around if someone wanted to became familiar with the Arduino system, but I have no interest in customizing 50 different varieties. I am no Arduino expert, and that has likely slowed me down, but I have hundreds of hours in this project.  If someone wants to add to it and improve it, that will only help the community. There are eventual limits to what can be done with this platform due to speed and memory, but that hasn't even been approached with the Teensy platform. To me, it beats the heck out of constantly watching a wall of gauges.
+
+I have tried to include a fair number of points for now. The hardware has provisions for many more screens and sensors to be added.
+
+The pressure sensors that I chose are amplified and have a 0.5v - 4.5v range. They  are available in 15#, 30#, 80#, 100#, and 150# and are around $25 each.
+
+The temperature sensors are Dallas 1-wire integrated circuit sensors integrated in a 6mm stainless sheath with a range of -67 to +257 degrees, so it works well in an automotive environment for what we are looking for. They will be installed with compression fittings for important systems and groments for casual ones. 
+
+One exception is a thermocouple channel (> +2450 F) for watching Exhaust Gas Temperature (EGT).  I have only implemented one TC channel, but the board has provisions for 4. It is also on a 1-Wire bus.
+
+The main "cluster" has an 2.8" color touchscreen LCD display mounted to a custom board with a Teensy 3.2 for the processing power. It connects via a CAT5 cable to the remote board with provisions for connectoring all of the sensors.  
+
+An enclosure has not yet been designed and placement hasn't been decided.  When I get to that point, I will probably 3D print or vacuum mold one.  Until then, duct tape will do. 
+
+If someone wants this to be turnkey, I can provide that, but there will be a cost for that.  It is intended as a development platform and to put the hard parts in the hands of those that want them. As I get custom pieces developed and made, I will make them available through the classifieds on theSamba.com or a dedicated website, but for now, it is mostly a list of parts and resources, and the code that I have already built.
+
+The temperature sensors are all based on an address system.  I can program them in before I send them out, but if one fails, the address needs to be inserted in the code. If someone isn't willing to learn a tiny bit about Arduinos, and plug them into their computer for an upload, that is going to be a challenge. I'm working on a way to do that from the touchscreen, but it is not completely functioning yet.  That being said, learning how to hook it up with a USB cord and upload new code will probably be quite beneficial, as it isn't hard, and there are likely to be improvements.
+
+The way I have it implemented is as follows:
+1) Oil pressure:  		Digital reading and bargraph.
+2) Oil Temperature:  	Digital reading and bargraph.
+3) Coolant Temperature:	Digital reading and bargraph.
+4) Trans temperature:	Digital reading and bargraph.
+5) EGT:					Digital reading and bargraph.
+6) Fuel Pressure: 		Digital reading: 	0-100 psi
+7) Coolant Pressure:	Digital reading: 	0-15 PSI.
+8) Inside temp:			Digital reading:
+9) Outside Temp:		Digital reading:
+10) Fridge Temp:		Digital reading:
+11) Air Tank Pressure:	Digital reading:	0-150 PSI
+12) Battery #1;			Digital reading:
+13) Battery #2:			Digital reading:
+
+Most are obvious, but the coolant pressure and the fuel pressure should give a quick indication of problems that we normally don't have access to. This will be especially useful once the alarming function working the way I want it. ie: coolant leak -> pressure drop -> flashing display and audible alarm.
+
+My reasoning is that with these readings available to me, I can keep a pretty good idea on the van's condition.  
+
+Left to do:
+1) Alarms implemented,
+2) Refine the main and interface boards. 
+3) Create a suitable encloure for installing on the dash.
+4) Add more pages and functionality. More sensors, and maybe a second I/O Bd,
+5) implement a way to add new sensor's addresses without hard coding.
+6) add RPM or time minimums for some of the alarms
+7) Selectable parameters displayed.
+8) Run the piss out of it in an automotive environment and ferret out weaknesses. 
+9) Formalize some instructions as to how best to install, care, and feed this animal.
+10) Implement the Real Time Clock and have the option to use it as the default screen,
+11) Scale decimal readings and Thermocouple readings.
+12) possible Bluetooth relaying to a phone or tablet.
+
+The original concept was to interface the sensors to the display with bluetooth, but that wasn't necessary for this phase and added to the cost and complexity.  Running a CAT5 ethernet cable worked out much better without too much hassle. 
+
+If any of you brave souls are interested in refining this, or just want to know more about it, contact me and we'll see where it goes.  If not, it will be a one-of and be installed in Smokey, my van. 
+
+  
+   
